@@ -50,9 +50,19 @@ class neural_network():
 		path_w = os.path.join(path_w,'{}.ckpt'.format(episode))
 		self.saver.save(self.sess,path_w)
 
+	# Load the Weights
+	def load_weights(self,weights):
+		self.saver.restore(self.sess,weights)
+
 	# Store network structure in logs.
 	def save_network_structure(self):
 		curr_dir = os.getcwd()
 		src_path = os.path.join(curr_dir,'neural_network','network_structure','network_structure.py')
 		target_path = os.path.join(self.path,'network_structure.py')
 		shutil.copy(src_path,target_path)
+
+	# Show the data on a single line.
+	def print_data(self,text,step,data):
+		text = "\r"+text+" %d: %f"
+		sys.stdout.write(text%(step,data))
+		sys.stdout.flush()
